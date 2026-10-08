@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091118">
+  <meta name="description" content="EcoDispatch Compute Lab: laboratorio abierto para experimentar con políticas de asignación de cargas LLM, colas y capacidad futura.">
+  <title>EcoDispatch Compute — Laboratorio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b1720'/%3E%3Cpath d='M13 37h11l8-18 8 26 8-13h5' stroke='%2372e4bf' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="EcoDispatch Compute Lab, inicio">
+        <span class="brand-mark" aria-hidden="true">◈</span>
+        <span><strong>ECODISPATCH</strong><small>COMPUTE LAB / V0.2</small></span>
+      </a>
+      <nav class="top-links" aria-label="Navegación principal">
+        <a href="#laboratorio">Laboratorio</a>
+        <a href="#metodologia">Metodología</a>
+        <a href="https://github.com/webtilians/ecodispatchcompute" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+      <span class="environment-tag"><span class="status-light" aria-hidden="true"></span> SIMULACIÓN / NO PRODUCCIÓN</span>
+    </header>
+
+    <main id="inicio">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-rule"></span> 001 / LABORATORIO DE OPTIMIZACIÓN ONLINE</div>
+          <h1 id="hero-title">La capacidad de <em>mañana</em> se decide hoy.</h1>
+          <p>¿Qué servidor debe atender la siguiente petición? Experimenta con <strong>tres políticas de asignación</strong>, cambia la presión sobre las GPU y comprueba qué sucede cuando intentamos proteger los recursos del futuro.</p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#laboratorio">Abrir laboratorio <span aria-hidden="true">↗</span></a>
+            <a class="secondary-link" href="#metodologia">Cómo funciona <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="visual-head"><span>SYSTEM / RESOURCE DISPATCH</span><span class="live-dots">● ● ●</span></div>
+          <div class="network">
+            <div class="network-input"><span>INPUT QUEUE</span><div class="pulse-stack"><i></i><i></i><i></i><i></i><i></i></div></div>
+            <svg class="network-lines" viewBox="0 0 410 190" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M90 95 Q150 95 195 28 Q240 -2 325 28" />
+              <path d="M90 95 Q150 95 195 74 Q245 74 325 74" />
+              <path d="M90 95 Q165 95 195 120 Q245 120 325 120" />
+              <path d="M90 95 Q150 95 195 166 Q245 196 325 166" />
+              <circle cx="90" cy="95" r="5"/><circle cx="325" cy="28" r="4"/><circle cx="325" cy="74" r="4"/><circle cx="325" cy="120" r="4"/><circle cx="325" cy="166" r="4"/>
+            </svg>
+            <div class="network-servers"><div>A <span class="server-chip">24 GB</span></div><div>B <span class="server-chip">12 GB</span></div><div>C <span class="server-chip">24 GB</span></div><div>D <span class="server-chip">16 GB</span></div></div>
+          </div>
+          <div class="visual-foot"><span>↗ OPTIMIZACIÓN DINÁMICA</span><span>GPU POOL / 04</span></div>
+        </div>
+      </section>
+
+      <section class="lab-section" id="laboratorio" aria-labelledby="lab-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">WORKSPACE / 01</p><h2 id="lab-title">Mesa de experimentos</h2><p>Controla la carga, lanza una simulación y compara los mismos escenarios para cada algoritmo.</p></div>
+          <span class="version-pill">SYNTHETIC BENCHMARK · V0.2</span>
+        </div>
+
+        <div class="lab-layout">
+          <aside class="control-panel" aria-labelledby="controls-title">
+            <div class="panel-title"><span class="panel-icon">⚙</span><div><h3 id="controls-title">Parámetros</h3><p>Diseña tu escenario</p></div></div>
+            <div class="preset-area"><p class="micro-heading">ESCENARIOS RÁPIDOS</p><div class="preset-buttons" role="group" aria-label="Escenarios predefinidos">
+              <button type="button" class="preset-button selected" data-preset="normal" aria-pressed="true">Normal</button>
+              <button type="button" class="preset-button" data-preset="overload" aria-pressed="false">Saturación</button>
+              <button type="button" class="preset-button" data-preset="large" aria-pressed="false">LLM grandes</button>
+            </div></div>
+            <form id="simulation-form">
+              <div class="field"><div class="field-head"><label for="count">Peticiones por escenario</label><output id="count-out" for="count">1.000</output></div><input id="count" name="count" type="range" min="100" max="3000" step="100" value="1000"><div class="field-limits"><span>100</span><span>3.000</span></div></div>
+              <div class="field"><div class="field-head"><label for="rate">Llegadas por segundo</label><output id="rate-out" for="rate">0,22 req/s</output></div><input id="rate" name="rate" type="range" min="0.05" max="0.6" step="0.01" value="0.22"><div class="field-limits"><span>0,05</span><span>0,60</span></div></div>
+              <div class="field"><div class="field-head"><label for="largeShare">Peticiones LLM grandes</label><output id="largeShare-out" for="largeShare">20 %</output></div><input id="largeShare" name="largeShare" type="range" min="0" max="80" step="5" value="20"><div class="field-limits"><span>0 %</span><span>80 %</span></div></div>
+              <div class="field field-accent"><div class="field-head"><label for="lambdaFuture">Peso de capacidad futura <span title="Peso del coste de perder capacidad para próximas peticiones" aria-label="Peso del coste de perder capacidad para próximas peticiones">ⓘ</span></label><output id="lambdaFuture-out" for="lambdaFuture">λ = 0,6</output></div><input id="lambdaFuture" name="lambdaFuture" type="range" min="0" max="3" step="0.1" value="0.6"><div class="field-limits"><span>Solo presente (0)</span><span>Más reserva (3)</span></div></div>
+              <div class="field field-inline"><div><label for="seeds">Repeticiones (semillas)</label><small>Comparación pareada</small></div><select id="seeds" name="seeds"><option value="1">1</option><option value="3">3</option><option value="5" selected>5</option><option value="10">10</option></select></div>
+              <div class="field field-inline"><div><label for="seed">Semilla inicial</label><small>Reproducible en este laboratorio</small></div><input id="seed" name="seed" type="number" min="0" max="1000000" step="1" value="7" required></div>
+              <div class="form-actions"><button type="submit" id="run-button" class="run-button">▶ Ejecutar experimento</button><button type="button" id="reset-button" class="reset-button">Restablecer</button></div>
+            </form>
+            <div class="control-note"><span aria-hidden="true">ⓘ</span> Toda la simulación se ejecuta en tu navegador. No se envían datos a ningún servidor.</div>
+          </aside>
+
+          <div class="experiment-output">
+            <div class="result-head"><div><p class="micro-heading">COMPARATIVA / RESULTADOS</p><h3>Tres estrategias. La misma carga.</h3></div><div class="result-actions"><span id="run-status" role="status" aria-live="polite"><i class="status-indicator"></i> Listo para simular</span><button type="button" id="export-button" class="export-button" disabled>↓ Exportar JSON</button></div></div>
+            <div class="policy-cards" id="policy-cards" aria-live="polite">
+              <div class="placeholder-card"><span>01 / ROUND ROBIN</span><b>—</b><small>Ejecuta una simulación</small></div>
+              <div class="placeholder-card"><span>02 / LEAST LOADED</span><b>—</b><small>Ejecuta una simulación</small></div>
+              <div class="placeholder-card placeholder-accent"><span>03 / ECODISPATCH</span><b>—</b><small>Ejecuta una simulación</small></div>
+            </div>
+            <div class="chart-grid">
+              <section class="chart-panel" aria-labelledby="chart-latency-title"><div class="chart-heading"><div><p class="micro-heading">01 / LATENCIA</p><h4 id="chart-latency-title">P95 de respuesta</h4></div><span class="unit-pill">segundos ↓</span></div><div id="latency-chart" class="bar-chart empty-chart"><p>Esperando resultados…</p></div></section>
+              <section class="chart-panel" aria-labelledby="chart-sla-title"><div class="chart-heading"><div><p class="micro-heading">02 / SLA</p><h4 id="chart-sla-title">Peticiones fuera de plazo</h4></div><span class="unit-pill">porcentaje ↓</span></div><div id="sla-chart" class="bar-chart empty-chart"><p>Esperando resultados…</p></div></section>
+            </div>
+            <div class="analysis-panel" id="interpretation"><div class="insight-symbol">✳</div><div><p class="micro-heading">LECTURA DEL EXPERIMENTO</p><p id="insight-text">Ejecuta un escenario para ver cómo se comporta EcoDispatch respecto al balanceador Least Loaded. Ninguna estrategia está declarada ganadora por adelantado.</p></div></div>
+          </div>
+        </div>
+
+        <div class="deep-dive" aria-labelledby="detail-title">
+          <div class="section-heading compact"><div><p class="eyebrow">WORKSPACE / 02</p><h2 id="detail-title">Dentro de los resultados</h2><p>Separa los promedios generales de las decisiones que afectan a cada tipo de petición.</p></div></div>
+          <div class="detail-grid">
+            <section class="detail-panel" aria-labelledby="sensitivity-title"><div class="chart-heading"><div><p class="micro-heading">ANÁLISIS DE SENSIBILIDAD</p><h3 id="sensitivity-title">¿Cuánto reservar para el futuro?</h3></div><span class="unit-pill">λ / P95</span></div><div class="line-wrap"><svg id="lambda-chart" viewBox="0 0 520 248" role="img" aria-label="Curva de latencia P95 según lambda"><text x="260" y="125" text-anchor="middle" fill="#758995">Esperando datos…</text></svg></div><p class="chart-footnote">Cada punto es la media del P95 de las mismas semillas. Un λ mayor no implica necesariamente mejores resultados.</p></section>
+            <section class="detail-panel" aria-labelledby="gpu-title"><div class="chart-heading"><div><p class="micro-heading">CAPACIDAD / ECODISPATCH</p><h3 id="gpu-title">Utilización de las GPU</h3></div><span class="unit-pill">0–100 %</span></div><div id="gpu-chart" class="gpu-bars"><p class="empty-note">Esperando datos…</p></div><div class="legend"><span><i class="legend-square"></i> Compatible con LLM grande</span><span><i class="legend-square legend-alt"></i> Solo LLM pequeño</span></div></section>
+          </div>
+          <section class="table-panel" aria-labelledby="table-title"><div class="table-heading"><div><p class="micro-heading">MÉTRICAS / DESGLOSE</p><h3 id="table-title">Comparación completa</h3></div><span class="unit-pill">medias entre semillas</span></div>
+            <div class="table-scroll"><table><thead><tr><th scope="col">Política</th><th scope="col">Latencia media</th><th scope="col">P95 total</th><th scope="col">SLA fallido</th><th scope="col">P95 LLM grande</th><th scope="col">P95 LLM pequeño</th><th scope="col">Coste activo</th></tr></thead><tbody id="comparison-rows"><tr><td colspan="7" class="empty-cell">Sin resultados todavía</td></tr></tbody></table></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="metodologia" class="method-section" aria-labelledby="method-title">
+        <div class="section-heading"><div><p class="eyebrow">BAJO EL CAPÓ / 03</p><h2 id="method-title">Un laboratorio, no una promesa.</h2><p>Transparencia primero: estos resultados describen un modelo simplificado, no servidores reales.</p></div></div>
+        <div class="method-cards">
+          <article><span>01 / EL PROBLEMA</span><h3>Asignar sin saber el futuro</h3><p>Las peticiones llegan una a una. El algoritmo conoce el estado actual y una proporción hipotética de modelos grandes, pero no ve las próximas solicitudes.</p></article>
+          <article><span>02 / EL MÉTODO</span><h3>Penalizar la capacidad perdida</h3><p>EcoDispatch suma a la latencia inmediata una penalización por deteriorar la capacidad para servir futuras peticiones. λ controla ese equilibrio.</p></article>
+          <article><span>03 / LAS LIMITACIONES</span><h3>Resultados exploratorios</h3><p>GPU, rendimiento, costes, llegadas y tiempos son sintéticos. No se modelan batching, fallos, caché KV ni costes cloud reales. No se heredan garantías de k-server.</p></article>
+        </div>
+        <div class="formula"><span>FUNCIÓN OBJETIVO / HEURÍSTICA</span><code>score = latencia_estimada + λ × Δ(capacidad_futura) + coste_ponderado</code><a href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/design.md" target="_blank" rel="noopener noreferrer">Diseño científico ↗</a></div>
+      </section>
+    </main>
+    <footer><div><strong>◈ ECODISPATCH COMPUTE</strong><span>Investigación abierta · Datos sintéticos · Código reproducible</span></div><a href="https://github.com/webtilians/ecodispatchcompute" target="_blank" rel="noopener noreferrer">SOURCE CODE ↗</a></footer>
+  </div>
+</body>
+</html>
