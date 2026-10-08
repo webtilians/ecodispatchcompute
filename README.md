@@ -1,5 +1,31 @@
 # EcoDispatch Compute
 
+## v0.2 — laboratorio web interactivo
+
+**[Abrir el laboratorio (cuando GitHub Pages esté activado)](https://webtilians.github.io/ecodispatchcompute/)**
+
+Interfaz estática en español para simular cargas LLM y comparar Round Robin, Least Loaded y EcoDispatch. Permite cambiar llegadas/segundo, tamaño de la carga, proporción de LLM grandes, peso de capacidad futura (λ), semillas y repeticiones. Incluye gráficos de P95 y SLA, barrido de sensibilidad λ, utilización por GPU, desglose por tamaño de modelo y exportación JSON. No usa un backend ni envía peticiones a GPU reales.
+
+**Para usarlo localmente:**
+
+```bash
+python -m http.server 8000 --directory web
+# abrir http://localhost:8000
+```
+
+**Para verificar la simulación web:**
+
+```bash
+node --test web/tests/simulator.test.mjs
+```
+
+La web utiliza semillas reproducibles dentro de su motor JavaScript, pero no comparte la misma secuencia pseudoaleatoria del simulador Python. Los resultados son **exploratorios y sintéticos**; las diferencias de rendimiento no implican mejoras en sistemas reales. Publicación: GitHub Pages desde la carpeta web/ mediante el workflow incluido, después de fusionar el PR y activar Settings → Pages → GitHub Actions.
+
+[Diseño y guía del laboratorio](docs/web-lab.md)
+
+---
+
+
 **An experimental, reproducible scheduler for heterogeneous LLM inference resources.**
 
 EcoDispatch Compute explores whether preserving *future service capability* helps route today's requests among scarce compute resources. It adapts the **architectural idea** of [EcoDispatch](https://github.com/webtilians/ecodispatch), not its real-world wildfire assumptions or any theoretical competitive guarantees.
