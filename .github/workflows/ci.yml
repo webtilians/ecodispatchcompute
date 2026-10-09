@@ -38,3 +38,7 @@ jobs:
           node --check web/worker.mjs
           node --check web/wiki.mjs
           node --check web/wiki-data.mjs
+          node --check web/validation.mjs
+          node --check web/validation-worker.mjs
+          node --check web/validation-app.mjs
+          node --check scripts/validate-v0.4.mjs
