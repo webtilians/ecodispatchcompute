@@ -39,12 +39,12 @@ test("exploration results are deterministic, paired and correctly summarized", {
   assert.equal(report.scenarios[0].n, 30);
   const data = report.scenarios[0];
   assert.ok(data.aggregate.lambda_0.p95 >= 0);
-  assert.ok(data.aggregate.lambda_0.6.p95 >= 0);
-  const d = data.perSeed.map(row => row.policies.lambda_0.6.miss - row.policies.lambda_0.miss);
+  assert.ok(data.aggregate["lambda_0.6"].p95 >= 0);
+  const d = data.perSeed.map(row => row.policies["lambda_0.6"].miss - row.policies.lambda_0.miss);
   const mean = d.reduce((sum, x) => sum + x, 0) / d.length;
-  assert.ok(Math.abs(mean - data.comparisons.lambda_0.6.slaMiss.meanDelta) < 1e-12);
+  assert.ok(Math.abs(mean - data.comparisons["lambda_0.6"].slaMiss.meanDelta) < 1e-12);
   const wins = d.filter(x => x < -1e-12).length;
-  assert.equal(wins, data.comparisons.lambda_0.6.slaMiss.wins);
+  assert.equal(wins, data.comparisons["lambda_0.6"].slaMiss.wins);
   assert.deepEqual(
     report.scenarios[0].perSeed.map(r => r.policies.lambda_0),
     runValidation(args).scenarios[0].perSeed.map(r => r.policies.lambda_0)
@@ -58,7 +58,7 @@ test("reserved evaluation is separate from exploratory seed range", { timeout: 1
   assert.equal(report.primary.n, 60);
   assert.equal(report.primary.simulationCriterionMet,
     report.primary.meanDelta < 0 && report.primary.ci95[1] < 0);
-  assert.equal(report.scenarios[0].comparisons.lambda_0.6.bootstrapSeed, 93041);
+  assert.equal(report.scenarios[0].comparisons["lambda_0.6"].bootstrapSeed, 93041);
   assert.equal(report.scenarios[0].comparisons.lambda_1.slaMiss.n, 60);
 });
 
