@@ -97,7 +97,7 @@ function addTabs(report) {
 function render(report) {
   addTabs(report);
   const selected = report.scenarios.find(s => s.id === chosen) || report.scenarios[0];
-  const data = selected.comparisons.lambda_0.6.slaMiss;
+  const data = selected.comparisons["lambda_0.6"].slaMiss;
   $("key-delta").textContent = points(data.meanDelta);
   $("key-ci").textContent = "[" + points(data.ci95[0]) + "; " + points(data.ci95[1]) + "]";
   $("key-n").textContent = String(data.n);
