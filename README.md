@@ -1,5 +1,22 @@
 # EcoDispatch Compute
 
+## v0.4 — Validation Lab
+
+**[Abrir la validación sintética](https://webtilians.github.io/ecodispatchcompute/validation.html)** · [Protocolo fijado antes de evaluar](docs/validation-v0.4-protocol.md)
+
+Batería de **cuatro cargas sintéticas**, tres estrategias básicas (Round Robin, Least Loaded, EcoDispatch) y una ablación de cinco valores de λ. El análisis primario está fijado: **EcoDispatch λ=0,6 vs λ=0 en saturación**, con 60 semillas reservadas. Se informa la diferencia media de incumplimiento SLA, un intervalo bootstrap pareado del 95 % sobre unidades de simulación, resultados por modelo, comparaciones secundarias y el número de semillas favorables/desfavorables. No afirmamos mejoras de GPUs reales ni garantías heredadas de artículos teóricos.
+
+```bash
+node scripts/validate-v0.4.mjs --stage exploration --scenario stressed --output results/exploration.json
+node scripts/validate-v0.4.mjs --stage reserved --scenario stressed --output results/reserved.json
+node --test web/tests/*.test.mjs
+```
+
+Todos los resultados se generan localmente, sin backend ni datos externos. **No seleccionar λ con las semillas reservadas y luego volver a llamarlo confirmación independiente.**
+
+---
+
+
 ## Wiki de aprendizaje (en español)
 
 📖 **[Aprender con la wiki interactiva](https://webtilians.github.io/ecodispatchcompute/wiki.html)** — glosario con 76 términos y seis lecciones sobre matemáticas, LLM, algoritmos, métricas, reproducibilidad y límites del experimento.
