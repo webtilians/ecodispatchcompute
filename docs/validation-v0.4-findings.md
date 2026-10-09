@@ -66,3 +66,18 @@ node scripts/validate-v0.4.mjs --stage reserved --scenario stressed --output res
 El [laboratorio web](https://webtilians.github.io/ecodispatchcompute/validation.html) permite ejecutar el protocolo localmente en el navegador y descargar el resultado como JSON. Los datos son deterministas para la versión del motor y las semillas fijadas.
 
 **Límite fundamental:** incluso un intervalo bootstrap claramente negativo en este simulador sería evidencia **interna a estas hipótesis sintéticas**, no prueba de mejoras económicas o de SLA en servidores LLM reales, ni una transferencia de garantías teóricas de k-server/matching.
+
+## Exploración adicional: los cuatro escenarios
+
+El pipeline también ha ejecutado las **cuatro condiciones exploratorias** (30 semillas 7–36 por escenario), con la misma familia de políticas predefinida. [Ejecución GitHub Actions](https://github.com/webtilians/ecodispatchcompute/actions/runs/37939110312) · [JSON íntegro](https://github.com/webtilians/ecodispatchcompute/actions/runs/37939110312/artifacts/11621460137).
+
+| Escenario | Δ SLA λ=0,6 − λ=0 (pp) | IC95 % pareado (pp) | Lectura |
+| --- | ---: | ---: | --- |
+| Baja carga | 0,000 | [0,000; 0,000] | No hay diferencia observada entre ambas políticas en estas semillas |
+| Carga nominal | −0,050 | [−0,093; −0,010] | Mejora pequeña dentro del simulador; **exploratoria** |
+| Saturación | −0,133 | [−0,470; +0,163] | Intervalo compatible con ambos signos |
+| Muchos LLM grandes | −0,013 | [−0,030; +0,003] | Intervalo compatible con ambos signos |
+
+Aunque la carga nominal arroja un intervalo exploratorio que no cruza cero, esto **no es un hallazgo confirmatorio**, porque se observaron varios escenarios y λ. Una confirmación requeriría fijar de antemano la comparación para carga nominal y usar un conjunto adicional de semillas no visto en ninguna fase de ajuste.
+
+Estos resultados tampoco representan desempeño de sistemas LLM reales.
