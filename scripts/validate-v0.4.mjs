@@ -41,7 +41,7 @@ try {
     for (const [policy, m] of Object.entries(s.aggregate)) {
       console.log(policy.padEnd(25) + (m.miss * 100).toFixed(2).padStart(11) + "%" + m.p95.toFixed(2).padStart(14));
     }
-    const diff = s.comparisons.lambda_0.6.slaMiss;
+    const diff = s.comparisons["lambda_0.6"].slaMiss;
     console.log("λ=0.6 vs λ=0 miss Δ=" + (diff.meanDelta * 100).toFixed(3) +
       " pp; paired 95% CI [" + (diff.ci95[0] * 100).toFixed(3) + ", " +
       (diff.ci95[1] * 100).toFixed(3) + "] pp");
