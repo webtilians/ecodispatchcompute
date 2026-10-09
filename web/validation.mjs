@@ -35,8 +35,8 @@ const POLICY_NAMES = Object.freeze({
   round_robin: "Round Robin",
   least_loaded: "Least Loaded",
   lambda_0: "EcoDispatch λ=0",
-  lambda_0.2: "EcoDispatch λ=0,2",
-  lambda_0.6: "EcoDispatch λ=0,6",
+  "lambda_0.2": "EcoDispatch λ=0,2",
+  "lambda_0.6": "EcoDispatch λ=0,6",
   lambda_1: "EcoDispatch λ=1",
   lambda_3: "EcoDispatch λ=3",
 });
