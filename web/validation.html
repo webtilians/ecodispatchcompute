@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091219">
+  <meta name="description" content="EcoDispatch Compute Validation Lab v0.4: cargas sintéticas pareadas, comparación λ=0,6 vs 0, intervalos bootstrap y prueba reservada.">
+  <title>Validation Lab v0.4 — EcoDispatch Compute</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./validation.css">
+  <script type="module" src="./validation-app.mjs"></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="site-header">
+    <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">◈</span><span><strong>ECODISPATCH</strong><small>COMPUTE / VALIDATION V0.4</small></span></a>
+    <nav class="top-links" aria-label="Secciones">
+      <a href="./index.html">Laboratorio</a><a href="./wiki.html">Wiki</a>
+      <a href="#protocolo">Protocolo</a><a href="https://github.com/webtilians/ecodispatchcompute" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </nav>
+    <span class="environment-tag"><span class="status-light"></span> CIENCIA / DATOS SINTÉTICOS</span>
+  </header>
+  <main>
+    <section class="validation-hero">
+      <div class="eyebrow"><span class="eyebrow-rule"></span> EXPERIMENTO 002 / EVALUACIÓN PAREADA</div>
+      <h1>¿Cuándo gana <em>reservar el futuro?</em></h1>
+      <p>Una intuición elegante no basta. Confrontamos EcoDispatch con la versión que ignora la capacidad futura, usando <strong>exactamente las mismas peticiones</strong>, semillas separadas e intervalos de incertidumbre.</p>
+      <div class="hero-chips"><span>4 ESCENARIOS</span><span>5 VALORES DE λ</span><span>30 + 60 SEMILLAS</span><span>IC95% PAREADO</span></div>
+
+      <aside class="frozen-result" aria-label="Resultado primario preestablecido de la evaluación reservada">
+        <div><span>RESULTADO PRIMARIO / 60 SEMILLAS RESERVADAS</span>
+        <strong>No se ha demostrado una mejora de SLA en este escenario sintético</strong>
+        <p>EcoDispatch λ=0,6 frente a λ=0: <b>−0,033 pp</b> de incumplimientos SLA; intervalo bootstrap pareado del 95 %: <b>[−0,257; +0,227] pp</b>. El intervalo incluye cero.</p></div>
+        <a href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/validation-v0.4-findings.md" target="_blank" rel="noopener noreferrer">Leer el informe ↗</a>
+      </aside>
+    </section>
+
+    <section class="research-frame" id="experimento" aria-labelledby="research-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">EXPERIMENTO / DISEÑO FIJO</p><h2 id="research-title">Comprobación reproducible.</h2><p>Los controles solo eligen qué parte del protocolo ejecutar. No modifican hipótesis, λ ni semillas.</p></div>
+        <a class="protocol-link" href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/validation-v0.4-protocol.md" target="_blank" rel="noopener noreferrer">Ver protocolo completo ↗</a>
+      </div>
+      <div class="run-layout">
+        <aside class="validation-controls">
+          <h3><span aria-hidden="true">◈</span> Preparar ejecución</h3>
+          <div class="v-field"><label for="stage">Fase de evaluación</label>
+            <select id="stage">
+              <option value="exploration">Exploración · 30 semillas</option>
+              <option value="reserved">Evaluación reservada · 60 semillas</option>
+            </select>
+            <p>La evaluación reservada usa semillas nuevas y la comparación fijada antes de ejecutar el análisis.</p>
+          </div>
+          <div class="v-field"><label for="scenario">Escenario de carga</label>
+            <select id="scenario">
+              <option value="stressed">Saturación · principal</option>
+              <option value="light">Baja carga</option>
+              <option value="nominal">Carga nominal</option>
+              <option value="large-heavy">LLM grandes</option>
+              <option value="all">Los cuatro escenarios</option>
+            </select>
+          </div>
+          <div class="preset-stat"><span>HIPÓTESIS PRIMARIA</span><strong>λ = 0,6 vs λ = 0</strong><small>Saturación · Δ tasa de incumplimiento SLA</small></div>
+          <div class="v-buttons"><button type="button" id="run-validation" class="run-button">▶ Ejecutar validación</button><button id="download-validation" type="button" class="reset-button" disabled>↓ Exportar JSON</button></div>
+          <p class="v-note">El cálculo se ejecuta en tu navegador. No lee los resultados de producción ni analiza GPU reales.</p>
+        </aside>
+
+        <div class="validation-results">
+          <div class="validation-status" role="status" aria-live="polite"><span id="status-dot" class="status-light"></span> <span id="validation-status">Selecciona un escenario para empezar.</span></div>
+          <div id="scenario-tabs" class="scenario-tabs" aria-label="Resultados por escenario" hidden></div>
+          <div class="key-metrics">
+            <article class="key-card"><span>Δ SLA frente a λ=0</span><strong id="key-delta">—</strong><small>puntos porcentuales (menos es mejor)</small></article>
+            <article class="key-card"><span>IC 95 % pareado</span><strong id="key-ci">—</strong><small>remuestreo de simulaciones completas</small></article>
+            <article class="key-card"><span>Semillas comparadas</span><strong id="key-n">—</strong><small id="key-range">Semillas aún no ejecutadas</small></article>
+          </div>
+          <div class="main-result">
+            <div><p class="micro-heading">INTERPRETACIÓN / SIN SELECCIÓN DE RESULTADOS</p><h3 id="verdict-title">No hay resultados todavía</h3><p id="verdict-text">El experimento presenta por igual mejoras y empeoramientos, sin declarar ganadora una política antes de medir.</p></div>
+            <span id="verdict-tag" class="verdict-tag">NO EJECUTADO</span>
+          </div>
+          <section class="validation-chart">
+            <div class="chart-heading"><div><p class="micro-heading">COMPARACIÓN / MISMAS PETICIONES</p><h3>Incumplimiento de SLA por política</h3></div><span class="unit-pill">% ↓</span></div>
+            <div id="validation-bars" class="validation-bars"><p class="v-note">Los resultados aparecerán aquí.</p></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="analysis-grid">
+        <section class="validation-panel">
+          <div class="chart-heading"><div><p class="micro-heading">SENSIBILIDAD / FUTURO</p><h3>¿Qué sucede al variar λ?</h3></div><span class="unit-pill">Δ SLA / pp</span></div>
+          <svg id="delta-chart" viewBox="0 0 520 248" role="img" aria-label="Diferencia en porcentaje de incumplimientos según lambda"><text x="260" y="128" fill="#7c9399" text-anchor="middle">Esperando resultados…</text></svg>
+          <p class="panel-foot">La banda de incertidumbre proviene del remuestreo de semillas completas. Los λ diferentes del 0,6 son comparaciones exploratorias.</p>
+        </section>
+        <section class="validation-panel">
+          <div class="chart-heading"><div><p class="micro-heading">ROBUSTEZ / REPLICACIÓN</p><h3>¿Cuántas semillas gana?</h3></div><span class="unit-pill">Δ SLA · λ0,6 − λ0</span></div>
+          <div class="outcomes" id="outcomes"><p class="v-note">Aquí se mostrarán los casos en que EcoDispatch mejora, empata o empeora.</p></div>
+          <p class="panel-foot">Un empate significa igual porcentaje de solicitudes fuera de SLA en esa simulación, no equivalencia general.</p>
+        </section>
+      </div>
+
+      <div class="comparison-table">
+        <div class="chart-heading"><div><p class="micro-heading">AUDITORÍA / TODAS LAS POLÍTICAS</p><h3>Desglose sin ocultar los resultados negativos</h3></div><span class="unit-pill">medias por semilla</span></div>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Política</th><th>SLA fallido</th><th>P95</th><th>P95 grandes</th><th>SLA grandes</th><th>Coste activo</th></tr></thead>
+          <tbody id="validation-table"><tr><td class="empty-cell" colspan="6">Ejecuta una evaluación para ver los resultados.</td></tr></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <section id="protocolo" class="research-method">
+      <p class="eyebrow">METODOLOGÍA / TRANSPARENCIA</p><h2>Lo que este experimento demuestra — y lo que no.</h2>
+      <div class="method-cards">
+        <article><span>01 / DATOS PAREADOS</span><h3>Las mismas solicitudes</h3><p>Cada algoritmo recibe exactamente la misma traza sintética en cada semilla. Aislamos el efecto de la política, no diferencias aleatorias en la carga.</p></article>
+        <article><span>02 / SIN FUTURO VISIBLE</span><h3>Evaluación online</h3><p>EcoDispatch nunca consulta solicitudes futuras. Calcula el efecto de cada decisión sobre un potencial basado en una hipótesis fija de demanda.</p></article>
+        <article><span>03 / SIN MILAGROS</span><h3>No son GPUs reales</h3><p>Los 4 servidores, SLA, tasas de llegada y velocidades son modelos ficticios, sin batching ni KV cache. Un buen resultado aquí no garantiza ahorro real.</p></article>
+      </div>
+      <p class="secondary-note">La comparación principal (saturación, λ=0,6 contra λ=0, métrica SLA) y las semillas reservadas se documentaron antes de evaluar la v0.4. Los demás gráficos son descriptivos. <a href="./wiki.html">Ver glosario y explicaciones →</a></p>
+    </section>
+  </main>
+  <footer><div><strong>◈ ECODISPATCH COMPUTE</strong><span>Validación sintética reproducible · protocolo y código abiertos</span></div><a href="./index.html">VOLVER AL LABORATORIO ↗</a></footer>
+</div>
+</body>
+</html>

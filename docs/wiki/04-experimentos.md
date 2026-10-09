@@ -89,3 +89,9 @@ Si EcoDispatch empeora SLA o P95, puede ser porque:
 No debemos esconder esos casos: son parte de la investigación.
 
 [Diccionario](glosario.md) · [Protocolo](../research-protocol.md)
+
+## v0.4: experimentación pareada y semillas reservadas
+
+En la [pantalla de validación v0.4](https://webtilians.github.io/ecodispatchcompute/validation.html) se compara de forma fija λ=0,6 contra λ=0 en saturación, usando **60 semillas reservadas** y un intervalo **bootstrap pareado**. Los demás escenarios y valores de λ son análisis secundarios. El protocolo completo se fijó en [validation-v0.4-protocol.md](../validation-v0.4-protocol.md) antes de evaluar.
+
+El resultado sigue siendo **exclusivamente del simulador**; no demuestra mejoras en GPUs reales.

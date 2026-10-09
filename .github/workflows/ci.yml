@@ -38,3 +38,39 @@ jobs:
           node --check web/worker.mjs
           node --check web/wiki.mjs
           node --check web/wiki-data.mjs
+          node --check web/validation.mjs
+          node --check web/validation-worker.mjs
+          node --check web/validation-app.mjs
+          node --check scripts/validate-v0.4.mjs
+
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Frozen reserved-scenario benchmark
+        run: node scripts/validate-v0.4.mjs --stage reserved --scenario stressed --output results/validation-v0.4-reserved-stressed.json
+      - name: Upload machine-readable reserved analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-v0.4-reserved-stressed
+          path: results/validation-v0.4-reserved-stressed.json
+          retention-days: 90
+
+  exploration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: All four fixed exploratory scenarios
+        run: node scripts/validate-v0.4.mjs --stage exploration --output results/validation-v0.4-exploration.json
+      - name: Upload exploratory report
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-v0.4-exploration
+          path: results/validation-v0.4-exploration.json
+          retention-days: 90
