@@ -1,5 +1,17 @@
 # EcoDispatch Compute
 
+## Wiki de aprendizaje (en español)
+
+📖 **[Aprender con la wiki interactiva](https://webtilians.github.io/ecodispatchcompute/wiki.html)** — glosario con 76 términos y seis lecciones sobre matemáticas, LLM, algoritmos, métricas, reproducibilidad y límites del experimento.
+
+- [Índice de capítulos Markdown](docs/wiki/README.md)
+- [Matemáticas paso a paso](docs/wiki/02-matematicas.md)
+- [Diccionario A–Z](docs/wiki/glosario.md)
+- [Cómo evaluar los resultados](docs/wiki/04-experimentos.md)
+
+La wiki sigue el código versionado. Se publica en GitHub Pages al fusionar esta documentación en master.
+
+
 ## v0.2 — laboratorio web interactivo
 
 **[Abrir el laboratorio (cuando GitHub Pages esté activado)](https://webtilians.github.io/ecodispatchcompute/)**
