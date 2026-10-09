@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091219">
+  <meta name="description" content="Wiki interactiva de EcoDispatch Compute: aprende las matemáticas y los términos de balanceo de GPU y LLM desde cero.">
+  <title>Wiki — EcoDispatch Compute Lab</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./wiki.css">
+  <script type="module" src="./wiki.mjs"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">◈</span><span><strong>ECODISPATCH</strong><small>COMPUTE LAB / WIKI</small></span></a>
+      <nav class="top-links" aria-label="Navegación">
+        <a href="./index.html">Laboratorio</a>
+        <a href="#lecciones">Lecciones</a>
+        <a href="#diccionario">Diccionario</a>
+        <a href="https://github.com/webtilians/ecodispatchcompute" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </nav>
+      <span class="environment-tag">GUÍA ABIERTA / ESPAÑOL</span>
+    </header>
+    <main>
+      <section class="wiki-hero">
+        <div class="eyebrow"><span class="eyebrow-rule"></span> BASE DE CONOCIMIENTO / 001</div>
+        <h1>Entiende cada <em>decisión</em>.</h1>
+        <p>Una wiki para comprender qué hace EcoDispatch Compute, por qué puede ser útil reservar GPU para futuras peticiones y cómo sabemos si realmente mejora algo. Matemáticas explicadas paso a paso, sin dar nada por supuesto.</p>
+        <div class="wiki-hero-buttons"><a class="primary-link" href="#lecciones">Comenzar a aprender ↓</a><a class="secondary-link" href="#diccionario">Buscar un término ↗</a></div>
+        <div class="wiki-facts"><span>06 LECCIONES</span><span><strong id="term-count">76</strong> TÉRMINOS</span><span>DOCUMENTACIÓN ABIERTA</span></div>
+      </section>
+      <section id="idea" class="quick-example">
+        <div><p class="eyebrow">LA IDEA EN 30 SEGUNDOS</p><h2>Una GPU rápida puede ser demasiado valiosa para ocuparla ahora.</h2><p>Si solo la GPU A puede ejecutar un modelo grande, asignarle todas las peticiones pequeñas podría crear una cola innecesaria. EcoDispatch evalúa también cuánto perjudicaría al próximo trabajo hipotético usar esa GPU.</p><p class="small-disclaimer">Eso no significa que siempre deba reservarla. Si el trabajo grande nunca llega, reservar la GPU puede empeorar el resultado.</p></div>
+        <div class="math-slab">
+          <span>FUNCIÓN DE DECISIÓN</span>
+          <div class="math-line">coste = latencia actual</div>
+          <div class="math-line emphasis">+ λ × ΔΦ</div>
+          <div class="math-explain">λ = importancia del futuro</div>
+          <div class="math-explain">ΔΦ = deterioro estimado de la capacidad futura</div>
+          <p>El sistema escoge el servidor compatible con la puntuación más baja. En la interfaz web el peso monetario está desactivado.</p>
+        </div>
+      </section>
+      <section id="lecciones" class="wiki-lessons">
+        <div class="section-heading"><div><p class="eyebrow">RUTA DE APRENDIZAJE / 01</p><h2>De cero a tus propios experimentos.</h2><p>Seis capítulos cortos, ordenados para aprender sin perderte entre fórmulas.</p></div></div>
+        <div class="lesson-grid">
+          <a class="lesson-card" href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/wiki/01-introduccion.md" target="_blank" rel="noopener noreferrer"><span>01 / FUNDAMENTOS</span><h3>¿Qué problema resolvemos?</h3><p>GPU incompatibles, modelos grandes, colas y el coste de elegir solo lo más rápido ahora.</p><b>Leer capítulo ↗</b></a>
+          <a class="lesson-card" href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/wiki/02-matematicas.md" target="_blank" rel="noopener noreferrer"><span>02 / OPTIMIZACIÓN</span><h3>Las matemáticas paso a paso</h3><p>Entiende la función de coste, Φ, ΔΦ, λ y cómo se relacionan con k-server, matching y k-median.</p><b>Leer capítulo ↗</b></a>
+          <a class="lesson-card" href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/wiki/03-simulador.md" target="_blank" rel="noopener noreferrer"><span>03 / SISTEMA</span><h3>Dentro del simulador</h3><p>Cómo llegan las peticiones y cómo toman decisiones Round Robin, Least Loaded y EcoDispatch.</p><b>Leer capítulo ↗</b></a>
+          <a class="lesson-card" href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/wiki/04-experimentos.md" target="_blank" rel="noopener noreferrer"><span>04 / CIENCIA</span><h3>Cómo probar una hipótesis</h3><p>Semillas, datos pareados, P95, SLA, ablaciones y cómo evitar conclusiones engañosas.</p><b>Leer capítulo ↗</b></a>
+          <a class="lesson-card" href="#diccionario"><span>05 / CONSULTA</span><h3>Diccionario A–Z</h3><p>Busca al instante conceptos de IA, redes, matemáticas, optimización y estadística.</p><b>Explorar términos ↓</b></a>
+          <a class="lesson-card" href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/wiki/06-preguntas.md" target="_blank" rel="noopener noreferrer"><span>06 / PREGUNTAS</span><h3>Qué sabemos y qué no</h3><p>¿Es una IA? ¿Aprende λ? ¿Usa literalmente la matemática de OpenAI? ¿Puede fallar?</p><b>Leer respuestas ↗</b></a>
+        </div>
+      </section>
+      <section id="diccionario" class="dictionary-section">
+        <div class="section-heading"><div><p class="eyebrow">DICCIONARIO / 02</p><h2>Cada término, explicado.</h2><p>Escribe una palabra o una pregunta corta. Las definiciones se actualizan automáticamente.</p></div><a href="https://github.com/webtilians/ecodispatchcompute/blob/master/docs/wiki/glosario.md" target="_blank" rel="noopener noreferrer" class="doc-link">Ver glosario completo en GitHub ↗</a></div>
+        <div class="search-box"><span aria-hidden="true">⌕</span><label for="term-search" class="sr-only">Buscar en el diccionario</label><input id="term-search" type="search" placeholder="Buscar: lambda, GPU, P95, matching, PPO…" autocomplete="off"><button type="button" id="clear-search" aria-label="Borrar búsqueda" hidden>✕</button></div>
+        <div class="term-meta"><span id="search-count" aria-live="polite">Cargando términos…</span><span>Fuente: documentación versionada del repositorio</span></div>
+        <div id="terms" class="term-grid"></div>
+        <div id="no-results" class="no-results" hidden>No encontramos ese término. Prueba con una palabra más sencilla o en inglés.</div>
+      </section>
+      <section class="next-step"><div><p class="eyebrow">APRENDER HACIENDO / 03</p><h2>Ahora compruébalo por ti mismo.</h2><p>La teoría nos dice qué podría ocurrir. El laboratorio nos permite medir cuándo funciona y cuándo no.</p></div><a class="primary-link" href="./index.html#laboratorio">Abrir laboratorio ↗</a></section>
+    </main>
+    <footer><div><strong>◈ ECODISPATCH COMPUTE</strong><span>Wiki en español · Investigación abierta · Datos sintéticos</span></div><a href="https://github.com/webtilians/ecodispatchcompute/tree/master/docs/wiki" target="_blank" rel="noopener noreferrer">EDITAR DOCUMENTACIÓN ↗</a></footer>
+  </div>
+</body>
+</html>

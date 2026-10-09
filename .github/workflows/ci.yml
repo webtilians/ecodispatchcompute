@@ -30,9 +30,11 @@ jobs:
         with:
           node-version: "22"
       - name: Browser simulator unit tests (Node.js)
-        run: node --test web/tests/simulator.test.mjs
+        run: node --test web/tests/*.test.mjs
       - name: Web syntax validation
         run: |
           node --check web/simulator.mjs
           node --check web/app.mjs
           node --check web/worker.mjs
+          node --check web/wiki.mjs
+          node --check web/wiki-data.mjs
